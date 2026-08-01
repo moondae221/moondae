@@ -422,7 +422,7 @@
     background:var(--white); border:1px solid var(--blush);
     border-radius:16px; overflow:hidden; box-shadow:var(--shadow);
   }
-  .card img{ aspect-ratio:3/4; object-fit:cover; width:100%; }
+  .card img{ aspect-ratio:3/4; object-fit:cover; width:100%; cursor:zoom-in; }
   .card .cap{ padding:12px 16px; font-size:14px; font-weight:700; color:var(--ink-soft); }
 
   /* 옆으로 슬라이드하는 포트폴리오 갤러리 */
@@ -434,6 +434,27 @@
     flex:0 0 auto; width:380px; scroll-snap-align:start;
   }
   .gallery-scroll .card img{ aspect-ratio:4/3; }
+
+  /* ============================================
+     ▼ 사진 크게 보기 (라이트박스)
+  ============================================ */
+  .lightbox-overlay{
+    position:fixed; inset:0; background:rgba(20,17,14,0.88);
+    display:none; align-items:center; justify-content:center;
+    z-index:1000; padding:32px; cursor:zoom-out;
+  }
+  .lightbox-overlay.open{ display:flex; animation:fadeIn 0.2s ease; }
+  .lightbox-overlay img{
+    max-width:90vw; max-height:88vh; border-radius:14px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.5); cursor:default;
+  }
+  .lightbox-close{
+    position:absolute; top:20px; right:28px;
+    background:rgba(255,255,255,0.15); color:var(--white);
+    border:none; width:40px; height:40px; border-radius:50%;
+    font-size:20px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  }
+  .lightbox-close:hover{ background:rgba(255,255,255,0.3); }
   .gallery-scroll::-webkit-scrollbar{ height:6px; }
   .gallery-scroll::-webkit-scrollbar-track{ background:var(--line); border-radius:999px; }
   .gallery-scroll::-webkit-scrollbar-thumb{ background:var(--blush); border-radius:999px; }
@@ -617,20 +638,36 @@
       <div class="tab-panel active" id="tab-all">
         <div class="gallery-scroll">
           <div class="card">
-            <img src="https://placehold.co/450x600/F6DEE1/3A342C?text=%EC%82%AC%EC%A7%84+1" alt="포트폴리오 사진 1">
-            <div class="cap">태뷔예정</div>
+            <img src="https://github.com/moondae221/moondae/blob/main/%EC%A0%AF%EC%A0%AF%EB%8B%98.png?raw=true" alt="데뷔예정 님">
+            <div class="cap">데뷔예정 님</div>
           </div>
           <div class="card">
-            <img src="https://placehold.co/450x600/E3D9C8/3A342C?text=%EC%82%AC%EC%A7%84+2" alt="포트폴리오 사진 2">
-            <div class="cap">지지직 츠융님</div>
+            <img src="https://github.com/moondae221/moondae/blob/main/Screenshot_082.png?raw=true" alt="데뷔예정 님">
+            <div class="cap">데뷔예정 님</div>
           </div>
           <div class="card">
-            <img src="https://placehold.co/450x600/F3ECE0/3A342C?text=%EC%82%AC%EC%A7%84+3" alt="포트폴리오 사진 3">
-            <div class="cap">태뷔예정</div>
+            <img src="https://github.com/moondae221/moondae/blob/main/%EB%9E%80%EB%B9%84%EB%8B%98.png?raw=true" alt="SOOP 데뷔예정 님">
+            <div class="cap">SOOP 데뷔예정 님</div>
           </div>
           <div class="card">
-            <img src="https://placehold.co/450x600/8FAE8B/FFFFFF?text=%EC%82%AC%EC%A7%84+4" alt="포트폴리오 사진 4">
-            <div class="cap">지지직 츠융님</div>
+            <img src="https://github.com/moondae221/moondae/blob/main/Tsd2.png?raw=true" alt="SOOP 데뷔예정 님">
+            <div class="cap">SOOP 데뷔예정 님</div>
+          </div>
+          <div class="card">
+            <img src="https://github.com/moondae221/moondae/blob/main/%EB%8F%84%EC%95%84%EB%8B%98.png?raw=true" alt="SOOP 웅무님">
+            <div class="cap">SOOP 웅무님</div>
+          </div>
+          <div class="card">
+            <img src="https://github.com/moondae221/moondae/blob/main/Tsd.png?raw=true" alt="SOOP 웅무님">
+            <div class="cap">SOOP 웅무님</div>
+          </div>
+          <div class="card">
+            <img src="https://github.com/moondae221/moondae/blob/main/%EA%B0%9C%EC%9D%B8%EC%9E%91.png?raw=true" alt="개인작">
+            <div class="cap">개인작</div>
+          </div>
+          <div class="card">
+            <img src="https://github.com/moondae221/moondae/blob/main/%EC%8D%B8%EB%84%A4%EC%9D%BC3.jpg?raw=true" alt="개인작">
+            <div class="cap">개인작</div>
           </div>
         </div>
       </div>
@@ -639,12 +676,36 @@
       <div class="tab-panel" id="tab-original">
         <div class="gallery-scroll">
           <div class="card">
-            <img src="https://placehold.co/450x600/F6DEE1/3A342C?text=%EC%82%AC%EC%A7%84+1" alt="포트폴리오 사진 1">
-            <div class="cap">태뷔예정</div>
+            <img src="https://github.com/moondae221/moondae/blob/main/%EC%A0%AF%EC%A0%AF%EB%8B%98.png?raw=true" alt="데뷔예정 님">
+            <div class="cap">데뷔예정 님</div>
           </div>
           <div class="card">
-            <img src="https://placehold.co/450x600/E3D9C8/3A342C?text=%EC%82%AC%EC%A7%84+2" alt="포트폴리오 사진 2">
-            <div class="cap">지지직 츠융님</div>
+            <img src="https://github.com/moondae221/moondae/blob/main/Screenshot_082.png?raw=true" alt="데뷔예정 님">
+            <div class="cap">데뷔예정 님</div>
+          </div>
+          <div class="card">
+            <img src="https://github.com/moondae221/moondae/blob/main/%EB%9E%80%EB%B9%84%EB%8B%98.png?raw=true" alt="SOOP 데뷔예정 님">
+            <div class="cap">SOOP 데뷔예정 님</div>
+          </div>
+          <div class="card">
+            <img src="https://github.com/moondae221/moondae/blob/main/Tsd2.png?raw=true" alt="SOOP 데뷔예정 님">
+            <div class="cap">SOOP 데뷔예정 님</div>
+          </div>
+          <div class="card">
+            <img src="https://github.com/moondae221/moondae/blob/main/%EB%8F%84%EC%95%84%EB%8B%98.png?raw=true" alt="SOOP 웅무님">
+            <div class="cap">SOOP 웅무님</div>
+          </div>
+          <div class="card">
+            <img src="https://github.com/moondae221/moondae/blob/main/Tsd.png?raw=true" alt="SOOP 웅무님">
+            <div class="cap">SOOP 웅무님</div>
+          </div>
+          <div class="card">
+            <img src="https://github.com/moondae221/moondae/blob/main/%EA%B0%9C%EC%9D%B8%EC%9E%91.png?raw=true" alt="개인작">
+            <div class="cap">개인작</div>
+          </div>
+          <div class="card">
+            <img src="https://github.com/moondae221/moondae/blob/main/%EC%8D%B8%EB%84%A4%EC%9D%BC3.jpg?raw=true" alt="개인작">
+            <div class="cap">개인작</div>
           </div>
         </div>
       </div>
@@ -882,7 +943,33 @@
 
   <div class="ph-flag">🔧 지금은 디자인 틀입니다. 사진/링크는 전부 예시(placeholder)예요. 실제 사진으로 바꾸는 방법은 채팅에서 안내할게요!</div>
 
+<div class="lightbox-overlay" id="lightboxOverlay">
+  <button class="lightbox-close" id="lightboxClose">✕</button>
+  <img id="lightboxImg" src="" alt="크게 보기">
+</div>
+
 <script>
+  // 포트폴리오 사진 클릭하면 크게 보기 (라이트박스)
+  const lightboxOverlay = document.getElementById('lightboxOverlay');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxClose = document.getElementById('lightboxClose');
+
+  document.querySelectorAll('.card img').forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src;
+      lightboxOverlay.classList.add('open');
+    });
+  });
+
+  function closeLightbox(){ lightboxOverlay.classList.remove('open'); lightboxImg.src=''; }
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightboxOverlay.addEventListener('click', e => {
+    if(e.target === lightboxOverlay) closeLightbox();
+  });
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape') closeLightbox();
+  });
+
   // 안내 및 유의사항 아코디언
   document.querySelectorAll('.accordion-header').forEach(btn => {
     btn.addEventListener('click', () => {
