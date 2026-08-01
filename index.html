@@ -943,6 +943,11 @@
                   <label class="qcheck-item"><input type="checkbox" class="addon-check" data-price="0" data-label="VRM"><span>VRM</span></label>
                 </div>
               </div>
+
+              <div class="field-group">
+                <div class="field-label">그 외 문의사항</div>
+                <textarea class="qtextarea" id="quoteEtc" rows="4" placeholder="위 항목 외에 궁금하신 점이나 요청사항이 있으면 자유롭게 적어주세요"></textarea>
+              </div>
             </div>
           </div>
 
@@ -1206,6 +1211,7 @@
     document.getElementById('quoteFacial').value = '';
     document.getElementById('quoteBooth').value = '';
     document.getElementById('quoteBoothSearch').value = '';
+    document.getElementById('quoteEtc').value = '';
     document.getElementById('boothSearchToggle').checked = false;
     document.getElementById('boothSearchField').classList.remove('open');
     document.querySelectorAll('.addon-check').forEach(chk => chk.checked = false);
@@ -1299,7 +1305,11 @@
     }
 
     text += `\n추가 작업: ${addons.length ? addons.join(', ') : '없음'}\n`;
-    text += `합계: ${won(total)}`;
+
+    const etc = document.getElementById('quoteEtc').value.trim();
+    text += `\n그 외 문의사항\n${etc || '(없음)'}\n`;
+
+    text += `\n합계: ${won(total)}`;
     navigator.clipboard.writeText(text).then(() => {
       const original = quoteCopyBtn.textContent;
       quoteCopyBtn.textContent = '복사됨!';
