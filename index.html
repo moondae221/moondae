@@ -66,7 +66,8 @@
   .nav-links{
     display:flex; gap:38px; font-size:14px; font-weight:500; color:#4A4A4A;
   }
-  .nav-links a:hover{ color:var(--blush); }
+  .nav-links a{ color:#4A4A4A !important; text-decoration:none !important; }
+  .nav-links a:hover{ color:var(--blush) !important; }
   .nav-toggle{ display:none; background:none; border:none; font-size:22px; cursor:pointer; color:var(--sage-deep); }
 
   @media (max-width:640px){
@@ -506,18 +507,6 @@
   <!-- ============================================
        네비게이션
   ============================================ -->
-  <nav class="nav">
-    <div class="nav-inner">
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#top">Top</a></li>
-        <li><a href="#notice">안내사항</a></li>
-        <li><a href="#process">작업순서</a></li>
-        <li><a href="#portfolio">포트폴리오</a></li>
-        <li><a href="#quote">문의양식</a></li>
-      </ul>
-      <button class="nav-toggle" id="navToggle">☰</button>
-    </div>
-  </nav>
 
   <!-- ============================================
        히어로
@@ -1035,12 +1024,6 @@
       btn.parentElement.classList.toggle('open');
     });
   });
-
-  // 모바일 네비게이션 토글
-  const navToggle = document.getElementById('navToggle');
-  const navLinks = document.getElementById('navLinks');
-  navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
-  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
 
   // 포트폴리오 탭 전환
   const tabBtns = document.querySelectorAll('.tab-btn');
