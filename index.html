@@ -172,11 +172,14 @@
   .accordion-content ul{ padding:0 4px 22px; }
   .accordion-content ul li{
     position:relative; padding-left:16px; font-size:14.5px; color:var(--ink-soft);
-    margin-bottom:8px;
+    line-height:1.7; padding-top:12px; padding-bottom:12px;
   }
+  .accordion-content ul li + li{ border-top:1px dashed var(--line); }
+  .accordion-content ul li:first-child{ padding-top:0; }
   .accordion-content ul li::before{
-    content:"·"; position:absolute; left:0; color:var(--sage-light);
+    content:"·"; position:absolute; left:0; top:12px; color:var(--sage-deep); font-weight:900;
   }
+  .accordion-content ul li:first-child::before{ top:0; }
   .accordion-content ul li strong{ color:var(--ink); font-weight:700; }
   .accordion-content ul li .hl{ color:var(--ink); font-weight:800; }
 
@@ -435,6 +438,20 @@
   }
   .gallery-scroll .card img{ aspect-ratio:4/3; }
 
+  .gallery-nav-wrap{ position:relative; }
+  .gallery-arrow{
+    position:absolute; top:calc(50% - 45px); transform:translateY(-50%);
+    width:42px; height:42px; border-radius:50%;
+    background:var(--white); border:1px solid var(--blush); box-shadow:var(--shadow);
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+    z-index:5; color:var(--sage-deep); font-size:20px; font-weight:900;
+    transition:background .15s ease, transform .15s ease;
+  }
+  .gallery-arrow:hover{ background:var(--sage-light); }
+  .gallery-arrow.prev{ left:-8px; }
+  .gallery-arrow.next{ right:-8px; }
+  @media (max-width:768px){ .gallery-arrow{ display:none; } }
+
   /* ============================================
      ▼ 사진 크게 보기 (라이트박스)
   ============================================ */
@@ -446,7 +463,7 @@
   .lightbox-overlay.open{ display:flex; animation:fadeIn 0.2s ease; }
   .lightbox-overlay img{
     max-width:90vw; max-height:88vh; border-radius:14px;
-    box-shadow:0 20px 60px rgba(0,0,0,0.5); cursor:default;
+    box-shadow:0 20px 60px rgba(0,0,0,0.5); cursor:zoom-out;
   }
   .lightbox-close{
     position:absolute; top:20px; right:28px;
@@ -963,11 +980,35 @@
 
   function closeLightbox(){ lightboxOverlay.classList.remove('open'); lightboxImg.src=''; }
   lightboxClose.addEventListener('click', closeLightbox);
+  lightboxImg.addEventListener('click', closeLightbox);
   lightboxOverlay.addEventListener('click', e => {
     if(e.target === lightboxOverlay) closeLightbox();
   });
   document.addEventListener('keydown', e => {
     if(e.key === 'Escape') closeLightbox();
+  });
+
+  // 가로 스크롤 갤러리 - 데스크탑용 화살표 버튼 + 드래그 + 휠 스크롤
+  document.querySelectorAll('.gallery-scroll').forEach(scrollEl => {
+    // 화살표 버튼 추가 (기존 위치에 wrap div로 감싸기)
+    const wrap = document.createElement('div');
+    wrap.className = 'gallery-nav-wrap';
+    scrollEl.parentNode.insertBefore(wrap, scrollEl);
+    wrap.appendChild(scrollEl);
+
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'gallery-arrow prev';
+    prevBtn.innerHTML = '‹';
+    prevBtn.setAttribute('aria-label', '이전 사진');
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'gallery-arrow next';
+    nextBtn.innerHTML = '›';
+    nextBtn.setAttribute('aria-label', '다음 사진');
+    wrap.appendChild(prevBtn);
+    wrap.appendChild(nextBtn);
+
+    prevBtn.addEventListener('click', () => scrollEl.scrollBy({ left: -340, behavior: 'smooth' }));
+    nextBtn.addEventListener('click', () => scrollEl.scrollBy({ left: 340, behavior: 'smooth' }));
   });
 
   // 안내 및 유의사항 아코디언
