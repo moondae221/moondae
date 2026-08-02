@@ -443,6 +443,10 @@
   }
   .gallery-scroll .card img{ aspect-ratio:4/3; }
 
+  @media (max-width:640px){
+    .gallery-scroll .card{ width:86vw; scroll-snap-align:center; }
+  }
+
   .gallery-nav-wrap{ position:relative; }
   .gallery-arrow{
     position:absolute; top:calc(50% - 45px); transform:translateY(-50%);
