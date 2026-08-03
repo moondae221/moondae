@@ -909,6 +909,13 @@
                 </select>
               </div>
 
+              <div class="field-group" id="vsfOnlyOptions" style="display:none;">
+                <div class="field-label">VSF 전용 옵션</div>
+                <div class="check-grid">
+                  <label class="qcheck-item"><input type="checkbox" class="addon-check" id="realtimeShadowCheck" data-price="30000" data-label="실시간 그림자"><span>실시간 그림자</span></label>
+                </div>
+              </div>
+
               <div class="field-group">
                 <div class="field-label">방송 닉네임 / 플랫폼 / 공개일자</div>
                 <input type="text" class="qtext" id="quoteBroadcast" placeholder="ex) 김문대 / 치지직 / 미정">
@@ -1150,6 +1157,8 @@
       quoteTotalEl.textContent = won(0);
       quoteCopyBtn.disabled = true;
       quoteCopyBtn.classList.remove('ready');
+      document.getElementById('vsfOnlyOptions').style.display = 'none';
+      document.getElementById('realtimeShadowCheck').checked = false;
       return;
     }
 
@@ -1176,6 +1185,15 @@
       }
     });
     const program = getProgram();
+
+    const vsfOnlyBox = document.getElementById('vsfOnlyOptions');
+    if(program === 'vsf'){
+      vsfOnlyBox.style.display = 'block';
+    } else {
+      vsfOnlyBox.style.display = 'none';
+      document.getElementById('realtimeShadowCheck').checked = false;
+    }
+
     if(program){
       ['hair','costume','accessory'].forEach(type => {
         const count = partCounts[type];
