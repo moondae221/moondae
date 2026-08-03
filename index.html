@@ -443,6 +443,21 @@
   }
   .gallery-scroll .card img{ aspect-ratio:4/3; }
 
+  .gallery-scroll .card.video-card{ width:420px; display:block; }
+  .yt-thumb-wrap{ position:relative; aspect-ratio:16/9; overflow:hidden; background:#000; }
+  .yt-thumb-wrap img{ width:100%; height:100%; object-fit:cover; display:block; cursor:pointer; }
+  .yt-play{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:56px; height:56px; border-radius:50%;
+    background:rgba(0,0,0,0.65); color:#fff; font-size:20px;
+    display:flex; align-items:center; justify-content:center; padding-left:4px;
+    transition:background .15s ease, transform .15s ease;
+  }
+  .card.video-card:hover .yt-play{ background:#E62117; transform:translate(-50%,-50%) scale(1.08); }
+  @media (max-width:640px){
+    .gallery-scroll .card.video-card{ width:86vw; }
+  }
+
   @media (max-width:640px){
     .gallery-scroll .card{ width:86vw; scroll-snap-align:center; }
   }
@@ -688,6 +703,10 @@
       <div class="tab-panel" id="tab-general">
         <div class="gallery-scroll">
           <div class="card">
+            <img src="https://github.com/moondae221/moondae/blob/main/Warudo_2026-07-30-16-31-13_3840x2160_8xAA.png?raw=true" alt="시나노">
+            <div class="cap">시나노</div>
+          </div>
+          <div class="card">
             <img src="https://github.com/moondae221/moondae/blob/main/%EC%A7%84%EB%8B%98.png?raw=true" alt="시나노">
             <div class="cap">시나노</div>
           </div>
@@ -769,22 +788,74 @@
 
       <!-- 페이셜 -->
       <div class="tab-panel" id="tab-facial">
-        <div class="empty-note">준비 중입니다 · 페이셜 포트폴리오는 추후 업데이트될 예정입니다</div>
+        <div class="gallery-scroll">
+          <a class="card video-card" href="https://youtu.be/XMbRF6Zg3V0" target="_blank" rel="noopener">
+            <div class="yt-thumb-wrap">
+              <img src="https://img.youtube.com/vi/XMbRF6Zg3V0/hqdefault.jpg" alt="페이셜">
+              <div class="yt-play">▶</div>
+            </div>
+            <div class="cap">페이셜</div>
+          </a>
+          <a class="card video-card" href="https://youtu.be/8H_ZbMvapNA" target="_blank" rel="noopener">
+            <div class="yt-thumb-wrap">
+              <img src="https://img.youtube.com/vi/8H_ZbMvapNA/hqdefault.jpg" alt="페이셜">
+              <div class="yt-play">▶</div>
+            </div>
+            <div class="cap">페이셜</div>
+          </a>
+          <a class="card video-card" href="https://youtu.be/9tx10QaIBKU" target="_blank" rel="noopener">
+            <div class="yt-thumb-wrap">
+              <img src="https://img.youtube.com/vi/9tx10QaIBKU/hqdefault.jpg" alt="페이셜">
+              <div class="yt-play">▶</div>
+            </div>
+            <div class="cap">페이셜</div>
+          </a>
+          <a class="card video-card" href="https://youtu.be/o93CjPnsr2k" target="_blank" rel="noopener">
+            <div class="yt-thumb-wrap">
+              <img src="https://img.youtube.com/vi/o93CjPnsr2k/hqdefault.jpg" alt="페이셜">
+              <div class="yt-play">▶</div>
+            </div>
+            <div class="cap">페이셜</div>
+          </a>
+        </div>
       </div>
 
       <!-- 말랑눈, 웃는눈 -->
       <div class="tab-panel" id="tab-softeyes">
-        <div class="empty-note">준비 중입니다 · 말랑눈·웃는눈 포트폴리오는 추후 업데이트될 예정입니다</div>
+        <div class="gallery-scroll">
+          <div class="card">
+            <img src="https://github.com/moondae221/moondae/blob/main/%EB%9E%80%EB%B9%84%EB%8B%98.gif?raw=true" alt="말랑눈+웃는눈">
+            <div class="cap">말랑눈+웃는눈</div>
+          </div>
+          <div class="card">
+            <img src="https://github.com/moondae221/moondae/blob/main/%EC%A0%AF%EC%A0%AF%EB%8B%98.gif?raw=true" alt="말랑눈+웃는눈">
+            <div class="cap">말랑눈+웃는눈</div>
+          </div>
+          <div class="card">
+            <img src="https://github.com/moondae221/moondae/blob/main/%EB%8F%84%EC%95%84%EB%8B%98%EB%BD%80%EC%9E%89%EB%88%88.gif?raw=true" alt="말랑눈">
+            <div class="cap">말랑눈</div>
+          </div>
+        </div>
       </div>
 
       <!-- 특수표정 -->
       <div class="tab-panel" id="tab-special">
-        <div class="empty-note">준비 중입니다 · 특수표정 포트폴리오는 추후 업데이트될 예정입니다</div>
+        <div class="gallery-scroll">
+          <div class="card">
+            <img src="https://github.com/moondae221/moondae/blob/main/%EB%9E%80%EB%B9%84%EB%8B%98%EB%88%88%EB%AC%BC.gif?raw=true" alt="흐르는 눈물">
+            <div class="cap">흐르는 눈물</div>
+          </div>
+        </div>
       </div>
 
       <!-- 기타옵션 -->
       <div class="tab-panel" id="tab-etcoption">
-        <div class="empty-note">준비 중입니다 · 기타옵션 포트폴리오는 추후 업데이트될 예정입니다</div>
+        <div class="gallery-scroll">
+          <div class="card">
+            <img src="https://github.com/moondae221/moondae/blob/main/%EA%B0%84%EB%8B%A8%ED%95%9C%20%EC%95%85%EC%84%B8.jpg?raw=true" alt="간단한 소품 모델링">
+            <div class="cap">간단한 소품 모델링</div>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -993,7 +1064,7 @@
   const lightboxImg = document.getElementById('lightboxImg');
   const lightboxClose = document.getElementById('lightboxClose');
 
-  document.querySelectorAll('.card img').forEach(img => {
+  document.querySelectorAll('.card:not(.video-card) img').forEach(img => {
     img.addEventListener('click', () => {
       lightboxImg.src = img.src;
       lightboxOverlay.classList.add('open');
@@ -1320,7 +1391,8 @@
     text += `\n그 외 문의사항\n${etc || '(없음)'}\n`;
 
     text += `\n합계: ${won(total)}`;
-    navigator.clipboard.writeText(text).then(() => {
+
+    function showCopied(){
       const original = quoteCopyBtn.textContent;
       quoteCopyBtn.textContent = '복사됨!';
       quoteCopyBtn.classList.add('copied');
@@ -1328,7 +1400,31 @@
         quoteCopyBtn.textContent = original;
         quoteCopyBtn.classList.remove('copied');
       }, 1800);
-    });
+    }
+
+    function fallbackCopy(str){
+      const ta = document.createElement('textarea');
+      ta.value = str;
+      ta.style.position = 'fixed';
+      ta.style.top = '-9999px';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try{
+        document.execCommand('copy');
+        showCopied();
+      } catch(e){
+        alert('복사에 실패했어요. 아래 텍스트를 직접 드래그해서 복사해주세요.\n\n' + str);
+      }
+      document.body.removeChild(ta);
+    }
+
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(showCopied).catch(() => fallbackCopy(text));
+    } else {
+      fallbackCopy(text);
+    }
   });
 
 </script>
