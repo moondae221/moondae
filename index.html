@@ -114,7 +114,8 @@
   .slot .month{ font-size:13px; color:var(--ink-soft); font-weight:600; margin-bottom:6px;}
   .slot .status{ font-family:var(--font-display); font-size:20px; }
   .slot .status.closed{ color:var(--blush); }
-  .slot .status.open{ color:var(--sage-deep); }
+  .slot .status.open{ color:var(--blush); }
+  .slot .status.open .filled{ color:var(--blush); }
 
   /* ============================================
      ▼ 섹션 공통
@@ -643,7 +644,7 @@
       </div>
       <div class="slot">
         <div class="month">9월 슬롯</div>
-        <div class="status open">○○○○</div>
+        <div class="status open"><span class="filled">●</span>○○○</div>
       </div>
     </div>
   </header>
