@@ -508,18 +508,24 @@
      ▼ 사진 크게 보기 (라이트박스)
   ============================================ */
   .lightbox-overlay{
-    position:absolute; left:0; width:100%;
+    position:absolute; top:0; left:0; width:100%; height:100%;
     background:rgba(20,17,14,0.88);
-    display:none; align-items:center; justify-content:center;
-    z-index:1000; padding:32px; cursor:zoom-out;
+    display:none;
+    z-index:1000; cursor:zoom-out;
   }
-  .lightbox-overlay.open{ display:flex; animation:fadeIn 0.2s ease; }
-  .lightbox-overlay img{
-    max-width:90vw; max-height:88vh; border-radius:14px;
+  .lightbox-overlay.open{ display:block; animation:fadeIn 0.2s ease; }
+  .lightbox-box{
+    position:absolute; left:50%; transform:translateX(-50%);
+    padding:0 16px;
+  }
+  .lightbox-box img{
+    display:block;
+    max-width:min(88vw, 760px); max-height:70vh; max-height:70svh;
+    border-radius:14px;
     box-shadow:0 20px 60px rgba(0,0,0,0.5); cursor:zoom-out;
   }
   .lightbox-close{
-    position:absolute; top:20px; right:28px;
+    position:absolute; top:-16px; right:0;
     background:rgba(255,255,255,0.15); color:var(--white);
     border:none; width:40px; height:40px; border-radius:50%;
     font-size:20px; cursor:pointer; display:flex; align-items:center; justify-content:center;
@@ -1220,31 +1226,46 @@
 
 
 <div class="lightbox-overlay" id="lightboxOverlay">
-  <button class="lightbox-close" id="lightboxClose">✕</button>
-  <img id="lightboxImg" src="" alt="크게 보기">
+  <div class="lightbox-box" id="lightboxBox">
+    <button class="lightbox-close" id="lightboxClose">✕</button>
+    <img id="lightboxImg" src="" alt="크게 보기">
+  </div>
 </div>
 
 <script>
   // 포트폴리오 사진 클릭하면 크게 보기 (라이트박스)
   const lightboxOverlay = document.getElementById('lightboxOverlay');
+  const lightboxBox = document.getElementById('lightboxBox');
   const lightboxImg = document.getElementById('lightboxImg');
   const lightboxClose = document.getElementById('lightboxClose');
 
-  function positionLightbox(){
-    const scrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
-    lightboxOverlay.style.top = scrollY + 'px';
-    lightboxOverlay.style.height = window.innerHeight + 'px';
+  // artmug처럼 iframe이 내부 스크롤 없이 통째로 삽입되는 환경에서는
+  // window.scrollY / innerHeight가 실제 화면 기준이 아니라서 fixed 방식이 어긋난다.
+  // 대신 클릭한 썸네일의 문서상 위치를 기준으로 그 자리에 바로 확대 이미지를 띄운다.
+  function openLightbox(img){
+    const rect = img.getBoundingClientRect();
+    const docScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+    const clickCenterY = rect.top + docScrollY + rect.height / 2;
+
+    lightboxImg.src = img.src;
+    lightboxOverlay.classList.add('open');
+
+    // 기본값(이미지 로드 전) - 썸네일 살짝 위쪽에 배치
+    let top = Math.max(clickCenterY - 260, docScrollY + 16);
+    lightboxBox.style.top = top + 'px';
+
+    lightboxImg.onload = () => {
+      const h = lightboxImg.offsetHeight;
+      let refinedTop = Math.max(clickCenterY - h / 2, docScrollY + 16);
+      lightboxBox.style.top = refinedTop + 'px';
+    };
   }
 
   document.querySelectorAll('.card:not(.video-card) img').forEach(img => {
-    img.addEventListener('click', () => {
-      lightboxImg.src = img.src;
-      positionLightbox();
-      lightboxOverlay.classList.add('open');
-    });
+    img.addEventListener('click', () => openLightbox(img));
   });
 
-  function closeLightbox(){ lightboxOverlay.classList.remove('open'); lightboxImg.src=''; }
+  function closeLightbox(){ lightboxOverlay.classList.remove('open'); lightboxImg.src=''; lightboxImg.onload = null; }
   lightboxClose.addEventListener('click', closeLightbox);
   lightboxImg.addEventListener('click', closeLightbox);
   lightboxOverlay.addEventListener('click', e => {
@@ -1252,12 +1273,6 @@
   });
   document.addEventListener('keydown', e => {
     if(e.key === 'Escape') closeLightbox();
-  });
-  window.addEventListener('scroll', () => {
-    if(lightboxOverlay.classList.contains('open')) positionLightbox();
-  });
-  window.addEventListener('resize', () => {
-    if(lightboxOverlay.classList.contains('open')) positionLightbox();
   });
 
   // 가로 스크롤 갤러리 - 데스크탑용 화살표 버튼 + 드래그 + 휠 스크롤
