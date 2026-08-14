@@ -508,7 +508,8 @@
      ▼ 사진 크게 보기 (라이트박스)
   ============================================ */
   .lightbox-overlay{
-    position:fixed; inset:0; background:rgba(20,17,14,0.88);
+    position:absolute; left:0; width:100%;
+    background:rgba(20,17,14,0.88);
     display:none; align-items:center; justify-content:center;
     z-index:1000; padding:32px; cursor:zoom-out;
   }
@@ -1229,9 +1230,16 @@
   const lightboxImg = document.getElementById('lightboxImg');
   const lightboxClose = document.getElementById('lightboxClose');
 
+  function positionLightbox(){
+    const scrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+    lightboxOverlay.style.top = scrollY + 'px';
+    lightboxOverlay.style.height = window.innerHeight + 'px';
+  }
+
   document.querySelectorAll('.card:not(.video-card) img').forEach(img => {
     img.addEventListener('click', () => {
       lightboxImg.src = img.src;
+      positionLightbox();
       lightboxOverlay.classList.add('open');
     });
   });
@@ -1244,6 +1252,12 @@
   });
   document.addEventListener('keydown', e => {
     if(e.key === 'Escape') closeLightbox();
+  });
+  window.addEventListener('scroll', () => {
+    if(lightboxOverlay.classList.contains('open')) positionLightbox();
+  });
+  window.addEventListener('resize', () => {
+    if(lightboxOverlay.classList.contains('open')) positionLightbox();
   });
 
   // 가로 스크롤 갤러리 - 데스크탑용 화살표 버튼 + 드래그 + 휠 스크롤
