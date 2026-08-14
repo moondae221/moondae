@@ -517,10 +517,13 @@
   .lightbox-overlay.open{ display:flex; animation:fadeIn 0.2s ease; }
   .lightbox-box{
     position:relative;
+    width:100%; max-width:820px;
+    box-sizing:border-box;
   }
   .lightbox-box img{
     display:block;
-    max-width:min(90vw, 900px); max-height:720px;
+    width:100%; height:auto;
+    max-height:720px; object-fit:contain;
     border-radius:14px;
     box-shadow:0 20px 60px rgba(0,0,0,0.5); cursor:zoom-out;
   }
