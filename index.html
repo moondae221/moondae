@@ -1107,19 +1107,7 @@
                 <div class="field-label">부스 링크</div>
                 <textarea class="qtextarea" id="quoteBooth" rows="5" placeholder="헤어/의상/렌즈/메이크업/악세서리 등 부스 링크
 
-· 모두 무슨 색상 하실 건지 캡쳐본으로 전달 부탁드립니다.
-· 부스 서치 도움 필요하실 경우 옵션 추가 부탁드립니다."></textarea>
-
-                <label class="qcheck">
-                  <input type="checkbox" id="boothSearchToggle">
-                  <span>부스 서치 도움이 필요해요</span>
-                </label>
-
-                <div class="field-sub" id="boothSearchField">
-                  <div class="field-hint">· 원하시는 스타일의 키워드를 알려주셔야 합니다.</div>
-                  <textarea class="qtextarea" id="quoteBoothSearch" rows="3" placeholder="ex) 헤어 : 단발 / 양갈래 / 장발 / 포니테일 등
-의상 : 귀여움 / 캐주얼 / 성숙 / 츄리닝 등"></textarea>
-                </div>
+· 모두 무슨 색상 하실 건지 캡쳐본으로 전달 부탁드립니다."></textarea>
               </div>
 
               <div class="field-group">
@@ -1344,7 +1332,6 @@
   function updateQuote(){
     const key = quoteItemSel.value;
     const base = quoteBaseSel.value;
-    const boothSearch = boothSearchToggle.checked;
 
     if(!key){
       quoteLinesEl.innerHTML = '<p class="quote-empty">신청 항목을 먼저 선택해주세요.</p>';
@@ -1361,10 +1348,6 @@
     let linesHtml = `<div class="quote-line"><span>${item.label}</span><span>${won(item.price)}</span></div>`;
     if(base){
       linesHtml += `<div class="quote-line"><span>베이스 아바타 · ${base}</span><span>-</span></div>`;
-    }
-    if(boothSearch){
-      total += 20000;
-      linesHtml += `<div class="quote-line"><span>부스 서치 도움</span><span>${won(20000)}</span></div>`;
     }
     document.querySelectorAll('.addon-check:checked').forEach(chk => {
       const price = Number(chk.dataset.price);
@@ -1503,10 +1486,7 @@
     document.getElementById('quoteAppearance').value = '';
     document.getElementById('quoteFacial').value = '';
     document.getElementById('quoteBooth').value = '';
-    document.getElementById('quoteBoothSearch').value = '';
     document.getElementById('quoteEtc').value = '';
-    document.getElementById('boothSearchToggle').checked = false;
-    document.getElementById('boothSearchField').classList.remove('open');
     document.querySelectorAll('.addon-check').forEach(chk => chk.checked = false);
     ['hair','costume','accessory'].forEach(type => {
       partCounts[type] = 0;
@@ -1518,20 +1498,11 @@
     updateQuote();
   });
 
-  // 부스 서치 옵션 체크박스 → 하위 필드 열고 닫기
-  const boothSearchToggle = document.getElementById('boothSearchToggle');
-  const boothSearchField = document.getElementById('boothSearchField');
-  boothSearchToggle.addEventListener('change', () => {
-    boothSearchField.classList.toggle('open', boothSearchToggle.checked);
-    updateQuote();
-  });
-
   quoteCopyBtn.addEventListener('click', () => {
     if(quoteCopyBtn.disabled) return;
     const item = quotePriceMap[quoteItemSel.value];
     const base = quoteBaseSel.value || '미선택';
-    const boothSearch = boothSearchToggle.checked;
-    let total = item.price + (boothSearch ? 20000 : 0);
+    let total = item.price;
 
     const addons = [];
     document.querySelectorAll('.addon-check:checked').forEach(chk => {
@@ -1555,13 +1526,6 @@
 
     const booth = document.getElementById('quoteBooth').value.trim();
     text += `부스 링크\n${booth || '(미작성)'}\n`;
-
-    if(boothSearch){
-      const boothKeywords = document.getElementById('quoteBoothSearch').value.trim();
-      text += `\n부스 서치 도움 요청 (스타일 키워드)\n${boothKeywords || '(미작성)'}\n`;
-    }
-
-    text += `\n부스 서치 도움: ${boothSearch ? won(20000) : '신청 안 함'}\n`;
 
     // 파츠 추가 (헤어/의상/악세)
     let partsText = '';
