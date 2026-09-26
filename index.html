@@ -465,7 +465,7 @@
   }
   .card img{ aspect-ratio:3/4; object-fit:cover; width:100%; cursor:zoom-in; }
   .card .cap{ padding:12px 16px; font-size:14px; font-weight:700; color:var(--ink-soft); }
-  .gallery-scroll .card video{ aspect-ratio:4/3; object-fit:cover; width:100%; display:block; }
+  .gallery-scroll .card video{ aspect-ratio:4/3; object-fit:cover; width:100%; display:block; cursor:zoom-in; }
 
   /* 옆으로 슬라이드하는 포트폴리오 갤러리 */
   .gallery-scroll{
@@ -526,6 +526,13 @@
     text-align:center;
   }
   .lightbox-box img{
+    display:inline-block;
+    width:auto; height:auto;
+    max-width:90vw; max-height:88vh;
+    border-radius:14px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.5); cursor:zoom-out;
+  }
+  .lightbox-box video{
     display:inline-block;
     width:auto; height:auto;
     max-width:90vw; max-height:88vh;
@@ -1036,10 +1043,6 @@
       <!-- 특수표정 -->
       <div class="tab-panel" id="tab-special">
         <div class="gallery-scroll">
-          <div class="card">
-            <img src="https://github.com/moondae221/moondae/blob/main/%EB%9E%80%EB%B9%84%EB%8B%98%EB%88%88%EB%AC%BC.gif?raw=true" alt="흐르는 눈물">
-            <div class="cap">흐르는 눈물</div>
-          </div>
         </div>
       </div>
 
@@ -1254,6 +1257,7 @@
   <div class="lightbox-box" id="lightboxBox">
     <button class="lightbox-close" id="lightboxClose">✕</button>
     <img id="lightboxImg" src="" alt="크게 보기">
+    <video id="lightboxVideo" autoplay loop muted playsinline style="display:none;"></video>
   </div>
 </div>
 
@@ -1262,28 +1266,57 @@
   const lightboxOverlay = document.getElementById('lightboxOverlay');
   const lightboxBox = document.getElementById('lightboxBox');
   const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxVideo = document.getElementById('lightboxVideo');
   const lightboxClose = document.getElementById('lightboxClose');
 
   // artmug처럼 iframe이 내부 스크롤 없이 통째로 삽입되는 환경에서는
   // window.scrollY / innerHeight로 "현재 화면 위치"를 계산하는 방식이 통하지 않는다.
   // 그래서 스크롤 값을 아예 쓰지 않고, 클릭한 사진이 들어있는 탭 패널(이미 화면에 보이고 있는 영역) 안으로
   // 라이트박스를 옮겨 넣어서, 그 패널 기준 상대 위치로만 뜨도록 한다. 이러면 항상 클릭 지점 근처에 뜬다.
-  function openLightbox(img){
-    const panel = img.closest('.tab-panel') || document.body;
+  function openLightbox(el){
+    const panel = el.closest('.tab-panel') || document.body;
     if(lightboxOverlay.parentElement !== panel){
       panel.appendChild(lightboxOverlay);
     }
-    lightboxImg.src = img.src;
+    if(el.tagName === 'VIDEO'){
+      lightboxImg.style.display = 'none';
+      lightboxImg.src = '';
+      lightboxVideo.style.display = 'inline-block';
+      lightboxVideo.querySelectorAll('source').forEach(s => s.remove());
+      const srcUrl = el.currentSrc || el.querySelector('source')?.src || el.src;
+      const srcType = el.querySelector('source')?.type || 'video/mp4';
+      const source = document.createElement('source');
+      source.src = srcUrl;
+      source.type = srcType;
+      lightboxVideo.appendChild(source);
+      lightboxVideo.load();
+      lightboxVideo.play();
+    } else {
+      lightboxVideo.pause();
+      lightboxVideo.style.display = 'none';
+      lightboxVideo.querySelectorAll('source').forEach(s => s.remove());
+      lightboxImg.style.display = 'inline-block';
+      lightboxImg.src = el.src;
+    }
     lightboxOverlay.classList.add('open');
   }
 
   document.querySelectorAll('.card:not(.video-card) img').forEach(img => {
     img.addEventListener('click', () => openLightbox(img));
   });
+  document.querySelectorAll('.card:not(.video-card) video').forEach(video => {
+    video.addEventListener('click', () => openLightbox(video));
+  });
 
-  function closeLightbox(){ lightboxOverlay.classList.remove('open'); lightboxImg.src=''; }
+  function closeLightbox(){
+    lightboxOverlay.classList.remove('open');
+    lightboxImg.src='';
+    lightboxVideo.pause();
+    lightboxVideo.querySelectorAll('source').forEach(s => s.remove());
+  }
   lightboxClose.addEventListener('click', closeLightbox);
   lightboxImg.addEventListener('click', closeLightbox);
+  lightboxVideo.addEventListener('click', closeLightbox);
   lightboxOverlay.addEventListener('click', e => {
     if(e.target === lightboxOverlay) closeLightbox();
   });
