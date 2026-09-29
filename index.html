@@ -1086,8 +1086,6 @@
               <div class="field-label">신청 항목 <span class="req">*</span></div>
               <select class="qselect" id="quoteItem">
                 <option value="">미선택</option>
-                <option value="general_vsf">♥ 일반 성형 · VSF 패키지 — 400,000원</option>
-                <option value="general_warudo">♥ 일반 성형 · Warudo 패키지 — 400,000원</option>
                 <option value="original_vsf">♥ 원화 기반 성형 · VSF 패키지 — 500,000원</option>
                 <option value="original_warudo">♥ 원화 기반 성형 · Warudo 패키지 — 500,000원</option>
                 <option value="head">♥ 오리지널 헤드 — 600,000원</option>
@@ -1118,6 +1116,17 @@
                 <div class="check-grid">
                   <label class="qcheck-item"><input type="checkbox" class="addon-check" id="realtimeShadowCheck" data-price="30000" data-label="실시간 그림자"><span>실시간 그림자</span></label>
                 </div>
+              </div>
+
+              <div class="field-group" id="headOnlyOptions" style="display:none;">
+                <div class="field-label">오리지널 헤드 추가 옵션</div>
+                <div class="field-hint">· 헤드 원화 + 안구 분리 필수 (AI 이미지 작업 불가합니다.) / 작업 최대 30일</div>
+                <div class="check-grid">
+                  <label class="qcheck-item"><input type="checkbox" class="addon-check" data-price="300000" data-label="52arkit 페이셜 추가"><span>52arkit 페이셜 추가 (300,000원)</span></label>
+                  <label class="qcheck-item"><input type="checkbox" class="addon-check" data-price="100000" data-label="mmd+vr chat 립싱크 대응"><span>mmd+vr chat 립싱크 대응 (100,000원)</span></label>
+                  <label class="qcheck-item"><input type="checkbox" class="addon-check" data-price="300000" data-label="저작권 구매"><span>저작권 구매 (300,000원)</span></label>
+                </div>
+                <div class="field-hint">· 표정키 제작을 원하시는 경우 원하시는 표정을 함께 말씀해 주세요 (별도 문의).</div>
               </div>
 
               <div class="field-group">
@@ -1196,13 +1205,13 @@
                   <label class="qcheck-item"><input type="checkbox" class="addon-check" data-price="30000" data-label="말랑속눈썹"><span>말랑속눈썹</span></label>
                   <label class="qcheck-item"><input type="checkbox" class="addon-check" data-price="30000" data-label="동물 귀 페이셜 연동"><span>동물 귀 페이셜 연동</span></label>
                   <label class="qcheck-item"><input type="checkbox" class="addon-check" data-price="50000" data-label="흐르는 눈물"><span>흐르는 눈물</span></label>
-                  <label class="qcheck-item"><input type="checkbox" class="addon-check" data-price="20000" data-label="특수 표정 · 하트눈"><span>특수 표정 · 하트눈</span></label>
-                  <label class="qcheck-item"><input type="checkbox" class="addon-check" data-price="20000" data-label="특수 표정 · 반짝눈"><span>특수 표정 · 반짝눈</span></label>
-                  <label class="qcheck-item"><input type="checkbox" class="addon-check" data-price="20000" data-label="특수 표정 · 빙글눈"><span>특수 표정 · 빙글눈</span></label>
-                  <label class="qcheck-item"><input type="checkbox" class="addon-check" data-price="20000" data-label="특수 표정 · 일자눈"><span>특수 표정 · 일자눈</span></label>
-                  <label class="qcheck-item"><input type="checkbox" class="addon-check" data-price="40000" data-label="특수 표정 · 정색"><span>특수 표정 · 정색</span></label>
-                  <label class="qcheck-item"><input type="checkbox" class="addon-check" data-price="40000" data-label="특수 표정 · 눈물"><span>특수 표정 · 눈물</span></label>
-                  <label class="qcheck-item"><input type="checkbox" class="addon-check" data-price="40000" data-label="특수 표정 · 홍조"><span>특수 표정 · 홍조</span></label>
+                  <label class="qcheck-item"><input type="checkbox" class="addon-check" data-price="20000" data-price-original="10000" data-label="특수 표정 · 하트눈"><span>특수 표정 · 하트눈</span></label>
+                  <label class="qcheck-item"><input type="checkbox" class="addon-check" data-price="20000" data-price-original="10000" data-label="특수 표정 · 반짝눈"><span>특수 표정 · 반짝눈</span></label>
+                  <label class="qcheck-item"><input type="checkbox" class="addon-check" data-price="20000" data-price-original="10000" data-label="특수 표정 · 빙글눈"><span>특수 표정 · 빙글눈</span></label>
+                  <label class="qcheck-item"><input type="checkbox" class="addon-check" data-price="20000" data-price-original="10000" data-label="특수 표정 · 일자눈"><span>특수 표정 · 일자눈</span></label>
+                  <label class="qcheck-item"><input type="checkbox" class="addon-check" data-price="40000" data-price-original="30000" data-label="특수 표정 · 정색"><span>특수 표정 · 정색</span></label>
+                  <label class="qcheck-item"><input type="checkbox" class="addon-check" data-price="40000" data-price-original="30000" data-label="특수 표정 · 눈물"><span>특수 표정 · 눈물</span></label>
+                  <label class="qcheck-item"><input type="checkbox" class="addon-check" data-price="40000" data-price-original="30000" data-label="특수 표정 · 홍조"><span>특수 표정 · 홍조</span></label>
                 </div>
                 <div class="field-hint">· 이 외 표정들은 원화가 있을 경우 작업 가능합니다.</div>
               </div>
@@ -1369,8 +1378,6 @@
 
   // 신청 양식 - 예상 견적 계산 (프로토타입)
   const quotePriceMap = {
-    general_vsf:    { label: '♥ 일반 성형 · VSF 패키지',     price: 400000 },
-    general_warudo: { label: '♥ 일반 성형 · Warudo 패키지',  price: 400000 },
     original_vsf:    { label: '♥ 원화 기반 성형 · VSF 패키지',    price: 500000 },
     original_warudo: { label: '♥ 원화 기반 성형 · Warudo 패키지', price: 500000 },
     head:           { label: '♥ 오리지널 헤드',      price: 600000 }
@@ -1415,6 +1422,14 @@
         : '· 참고할 이미지나 자료가 있다면 함께 첨부 부탁드립니다. (타작가님 작업물 X, 핀터레스트/자캐 그림 O)\n· 구체적으로 말씀해주실수록 만족스러운 결과물이 나옵니다.\n· 가슴 크기도 키우실 건지 말씀 부탁드리며, 따로 말씀 없으실 경우 임의로 적당하게 키워드립니다.';
     }
 
+    const headOnlyBox = document.getElementById('headOnlyOptions');
+    if(headOnlyBox){
+      headOnlyBox.style.display = (key === 'head') ? 'block' : 'none';
+      if(key !== 'head'){
+        headOnlyBox.querySelectorAll('.addon-check').forEach(chk => chk.checked = false);
+      }
+    }
+
     if(!key){
       quoteLinesEl.innerHTML = '<p class="quote-empty">신청 항목을 먼저 선택해주세요.</p>';
       quoteTotalEl.textContent = won(0);
@@ -1432,7 +1447,8 @@
       linesHtml += `<div class="quote-line"><span>바디 아바타 · ${base}</span><span>-</span></div>`;
     }
     document.querySelectorAll('.addon-check:checked').forEach(chk => {
-      const price = Number(chk.dataset.price);
+      const useOriginal = key.startsWith('original') && chk.dataset.priceOriginal !== undefined;
+      const price = Number(useOriginal ? chk.dataset.priceOriginal : chk.dataset.price);
       total += price;
       linesHtml += `<div class="quote-line"><span>${chk.dataset.label}</span><span>${won(price)}</span></div>`;
     });
@@ -1586,9 +1602,11 @@
     const base = quoteBaseSel.value || '미선택';
     let total = item.price;
 
+    const key = quoteItemSel.value;
     const addons = [];
     document.querySelectorAll('.addon-check:checked').forEach(chk => {
-      const price = Number(chk.dataset.price);
+      const useOriginal = key.startsWith('original') && chk.dataset.priceOriginal !== undefined;
+      const price = Number(useOriginal ? chk.dataset.priceOriginal : chk.dataset.price);
       total += price;
       addons.push(`${chk.dataset.label} (${won(price)})`);
     });
